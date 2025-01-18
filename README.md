@@ -2,6 +2,9 @@
 
 ## Live Demo
 
+<img width="1512" alt="Screenshot 2025-01-18 at 10 39 42 AM" src="https://github.com/user-attachments/assets/7abd24e5-32cc-44f9-b23e-6eff01a941d1" />
+
+
 You can view the live version of this project here: [Live Demo](https://recipe-explorer-ejiro.vercel.app/)
 
 ## Setup and Run the Project
