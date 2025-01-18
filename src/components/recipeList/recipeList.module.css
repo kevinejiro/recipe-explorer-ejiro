@@ -1,0 +1,9 @@
+.listWrapper {
+  display: flex;
+  flex-direction: column;
+  overflow-x: scroll;
+
+  @media (min-width: 768px) {
+    overflow-x:visible
+  }
+}

@@ -1,0 +1,51 @@
+.navWrapper {
+  display: flex;
+  place-content: center;
+  align-items: center;
+  width: 100%;
+
+  header{
+    width: var(--layout-in-width);
+    place-content: space-between;
+    place-items: center;
+    text-align: center;
+    display: flex;
+    padding: 1.5rem 0 1.5rem 0;
+    z-index: 2;
+
+    @media (min-width: 768px) {
+      padding: 1.5rem 0 3rem 0;
+    }
+
+    .logoWrapper{
+      display: flex;
+      place-content: center;
+      align-items: center;
+    }
+
+    .buttons{
+      place-content: space-between;
+      text-align: center;
+      gap: 5px;
+      display: none;
+
+      @media (min-width: 768px) {
+        display: flex;
+      }
+    }
+
+
+    .buttonsMobile {
+      display: flex;
+
+      @media (min-width: 768px) {
+        display: none;
+      }
+
+      > .button{
+        display: flex;
+      }
+    }
+  }
+
+}

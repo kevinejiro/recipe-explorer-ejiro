@@ -1,0 +1,25 @@
+.footerWrapper{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .footer{
+    width: var(--layout-in-width);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 2rem;
+    padding: 5rem 0 2rem 0;
+    font-family: var(--font-familyII);
+
+    p{
+      font-size: var(--a-font-size);
+      text-decoration: none;
+      color: var(--gray);
+    }
+  }
+
+}
+
+

@@ -1,0 +1,50 @@
+.control {
+  border-bottom: 1.5px solid var(--black);
+  position: relative;
+  width: 100%;
+
+  @media (min-width: 768px) {
+    width: fit-content;
+  }
+
+  input{
+    border: none;
+    width: 100%;
+    outline: none;
+    caret-color: var(--black); 
+    background: transparent;
+    height: 3rem;
+    min-width: 190px;
+    font-family: var(--font-family);
+    font-size: var(--p-font-size);
+    font-weight: var(--font-medium);
+    color: var(--black);
+
+    /* reset */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
+   /* Handle Webkit (Chrome, Safari, newer versions of Opera) */
+   input:-webkit-autofill,
+   input:-webkit-autofill:hover,
+   input:-webkit-autofill:focus {
+    -webkit-background-clip: text;
+     -webkit-text-fill-color: var(--black);
+   }
+
+  input::placeholder {
+    font-family: var(--font-family);
+    font-size: var(--p-font-size);
+    opacity: 0.5;
+    color: var(--black);
+  }
+
+  .errorText{
+    position: absolute;
+    bottom: -2rem;
+    left: 0;
+    color: var(--white);
+    text-transform: capitalize;
+  }
+}
