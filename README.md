@@ -1,46 +1,70 @@
-# Getting Started with Create React App
+# Recipe Explorer
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Live Demo
 
-## Available Scripts
+You can view the live version of this project here: [Live Demo](https://recipe-explorer-ejiro.vercel.app/)
 
-In the project directory, you can run:
+## Setup and Run the Project
 
-### `npm start`
+### Prerequisites
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- Node.js and npm should be installed on your machine. You can download them from [nodejs.org](https://nodejs.org/).
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### Installation
 
-### `npm test`
+1. Clone the repository:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+   ```bash
+   git clone https://github.com/your-username/your-repo.git
+   cd your-repo
+   ```
 
-### `npm run build`
+2. Install the dependencies:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+   ```bash
+   npm install
+   ```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+3. Create a `.env` file in the root directory and configure your environment variables. You can use the `.env.sample` file as a reference:
+   ```env
+   REACT_APP_BASE_URL='https://your-production-api-url.com'
+   ```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Running the Project
 
-### `npm run eject`
+- To start the development server, run:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+  ```bash
+  npm start
+  ```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- To build the project for production, run:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+  ```bash
+  npm run build
+  ```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- To run tests, use:
+  ```bash
+  npm test
+  ```
 
-## Learn More
+## Design Decisions and Trade-offs
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- **Redux Toolkit and RTK Query**: The project uses Redux Toolkit for state management and RTK Query for data fetching and syncing. This combination provides a robust and scalable architecture for managing application state.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- **React Router**: We use React Router for client-side routing, which allows for a seamless navigation experience without full page reloads.
+
+- **TypeScript**: The project is written in TypeScript, which helps catch errors at compile time and provides better tooling support.
+
+- **Responsive Design**: The application is designed to be responsive, ensuring a good user experience across different devices. This is achieved using CSS media queries and flexible layout techniques.
+
+- **Trade-offs**: While using TypeScript and Redux Toolkit adds complexity, it also provides type safety and a predictable state management pattern, which is beneficial for larger applications.
+
+## Known Limitations
+
+- **API Dependency**: The application relies on an external API for fetching recipe data. Any downtime or changes in the API could affect the application's functionality.
+
+- **Limited Error Handling**: Currently, the application has basic error handling. Future improvements could include more comprehensive error management and user feedback.
+
+- **Performance**: The application may experience performance issues with a large number of recipes due to client-side filtering and sorting. Server-side pagination and filtering could be considered for optimization.
