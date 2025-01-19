@@ -19,7 +19,7 @@ You can view the live version of this project here: [Live Demo](https://recipe-e
 
    ```bash
    git clone https://github.com/kevinejiro/recipe-explorer-ejiro.git
-   cd your-repo
+   cd recipe-explorer-ejiro
    ```
 
 2. Install the dependencies:
