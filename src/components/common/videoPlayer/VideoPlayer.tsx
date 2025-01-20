@@ -18,7 +18,7 @@ const VideoPlayer: React.FC<{
 	return (
 		<article className={styles.videoContainer} aria-label={altText}>
 			<video
-				data-testid='videoplayer'
+				data-testid='videoPlayer'
 				ref={ref}
 				autoPlay
 				muted

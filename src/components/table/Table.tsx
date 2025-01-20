@@ -1,12 +1,11 @@
 import { Column, flexRender } from '@tanstack/react-table';
 import { Table as ReactTable } from '@tanstack/react-table';
+import { RecipeT } from '../recipeList/RecipeList';
 
-interface TableProps {
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	table: ReactTable<any>;
+export interface TableProps {
+	table: ReactTable<RecipeT>;
 	handleRowClick?: (id: string) => void;
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	Filter?: ({ column }: { column: Column<any, unknown> }) => JSX.Element;
+	Filter?: ({ column }: { column: Column<RecipeT, unknown> }) => JSX.Element;
 }
 
 export function Table({ table, handleRowClick, Filter }: TableProps) {

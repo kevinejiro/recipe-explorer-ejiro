@@ -28,7 +28,7 @@ describe('RecipeForm Component', () => {
 		expect(screen.getByLabelText(/instructions/i)).toBeInTheDocument();
 	});
 
-	test('closes the modal when the close button is clicked', () => {
+	test('closes the modal when the close button is clicked', async () => {
 		render(
 			<Provider store={store}>
 				<RecipeForm />
@@ -36,6 +36,7 @@ describe('RecipeForm Component', () => {
 		);
 
 		fireEvent.click(screen.getByText(/Close/i));
+		await new Promise((resolve) => setTimeout(resolve, 0));
 		expect(store.getState().ui.isAddRecipeModalOpen).toBe(false);
 	});
 

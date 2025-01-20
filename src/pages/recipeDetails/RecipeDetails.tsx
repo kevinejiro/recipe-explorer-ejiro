@@ -9,7 +9,9 @@ import SimilarRecipesList from '../../components/similarRecipesList/similarRecip
 export default function RecipeDetails() {
 	const { id } = useParams();
 
-	const { data, isLoading, isSuccess } = useGetRecipeByIdQuery(id ?? '');
+	const { data, isLoading, isSuccess, isError } = useGetRecipeByIdQuery(
+		id ?? ''
+	);
 	const recipeObject = data?.meals?.[0];
 
 	const recipe = transformRecipeObject(recipeObject);
@@ -18,6 +20,14 @@ export default function RecipeDetails() {
 		return (
 			<NoMatch>
 				<h3>Loading</h3>
+			</NoMatch>
+		);
+	}
+
+	if (isError) {
+		return (
+			<NoMatch>
+				<h3>An Error Occurred, please refresh</h3>
 			</NoMatch>
 		);
 	}
@@ -42,7 +52,7 @@ export default function RecipeDetails() {
 					{recipe?.strCategory} • {recipe?.strArea}
 				</p>
 				{recipe?.strMealThumb && (
-					<img src={recipe?.strMealThumb} alt={`${recipe?.strMealThumb}`} />
+					<img src={recipe?.strMealThumb} alt={`${recipe?.strMeal}`} />
 				)}
 			</div>
 

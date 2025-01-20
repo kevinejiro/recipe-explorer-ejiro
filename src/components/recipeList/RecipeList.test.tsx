@@ -1,4 +1,3 @@
-import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import {
@@ -8,29 +7,19 @@ import {
 import useRecipeList from '../../hooks/useRecipeList';
 import RecipeList from './RecipeList';
 import { PaginationProps } from '../pagination/Pagination';
+import { TableProps } from '../table/Table';
 
 // Mock hooks and components
 jest.mock('../../store/recipes/recipesApiSlice');
 jest.mock('../../hooks/useRecipeList');
-jest.mock(
-	'../table/Table',
-	() =>
-		({
-			table,
-			handleRowClick,
-			Filter,
-		}: {
-			table: any;
-			handleRowClick: (id: string) => void;
-			Filter: any;
-		}) =>
-			(
-				<div>
-					<div>Mocked Table</div>
-					<button onClick={() => handleRowClick('1')}>Row 1</button>
-				</div>
-			)
-);
+jest.mock('../table/Table', () => ({
+	Table: ({ table, handleRowClick }: TableProps) => (
+		<div>
+			<div>Mocked Table</div>
+			<button onClick={() => handleRowClick?.('1')}>Row 1</button>
+		</div>
+	),
+}));
 jest.mock(
 	'../pagination/Pagination',
 	() =>
@@ -68,6 +57,7 @@ describe('RecipeList Component', () => {
 		(useRecipeList as jest.Mock).mockReturnValue({
 			isLoading: false,
 			isSuccess: true,
+			isError: false,
 			recipeList: [
 				{
 					strMeal: 'Meal 1',
@@ -83,6 +73,7 @@ describe('RecipeList Component', () => {
 		(useRecipeList as jest.Mock).mockReturnValue({
 			isLoading: true,
 			isSuccess: false,
+			isError: false,
 			recipeList: [],
 		});
 		render(<RecipeList />, { wrapper: BrowserRouter });
@@ -90,14 +81,47 @@ describe('RecipeList Component', () => {
 		expect(screen.getByText('Loading')).toBeInTheDocument();
 	});
 
+	it('renders error message when there is an error', () => {
+		(useRecipeList as jest.Mock).mockReturnValue({
+			isLoading: false,
+			isSuccess: false,
+			isError: true,
+			recipeList: [],
+		});
+		render(<RecipeList />, { wrapper: BrowserRouter });
+
+		expect(screen.getByText('An Error Occurred')).toBeInTheDocument();
+	});
+
 	it('renders no results message', () => {
 		(useRecipeList as jest.Mock).mockReturnValue({
 			isLoading: false,
 			isSuccess: true,
+			isError: false,
 			recipeList: [],
 		});
 		render(<RecipeList />, { wrapper: BrowserRouter });
 
 		expect(screen.getByText('No results from query')).toBeInTheDocument();
+	});
+
+	it('renders the recipe list when data is available', () => {
+		(useRecipeList as jest.Mock).mockReturnValue({
+			isLoading: false,
+			isSuccess: true,
+			isError: false,
+			recipeList: [
+				{
+					strMeal: 'Meal 1',
+					strCategory: 'Category 1',
+					strArea: 'Area 1',
+					strTags: 'Tag 1',
+				},
+			],
+		});
+		render(<RecipeList />, { wrapper: BrowserRouter });
+
+		expect(screen.getByText('Mocked Table')).toBeInTheDocument();
+		expect(screen.getByText('Row 1')).toBeInTheDocument();
 	});
 });

@@ -1,9 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { createMemoryRouter, RouterProvider } from 'react-router-dom';
-import Layout from './components/layout/Layout';
-import Home from './pages/home/Home';
-import PageNotFound from './pages/404/PageNotFound';
-import RecipeDetails from './pages/recipeDetails/RecipeDetails';
+import { ROUTES } from './utils/routes'
 
 beforeAll(() => {
 	// Mock IntersectionObserver
@@ -23,35 +20,9 @@ beforeAll(() => {
 });
 
 describe('App', () => {
-	const routes = [
-		{
-			path: '/',
-			element: <Layout />,
-			errorElement: (
-				<Layout>
-					<PageNotFound />
-				</Layout>
-			),
-			children: [
-				{
-					index: true,
-					element: <Home />,
-				},
-				{
-					path: 'recipe/:id',
-					element: <RecipeDetails />,
-				},
-				{
-					path: '*',
-					element: <PageNotFound />,
-				},
-			],
-		},
-	];
-	// ... existing code ...
 
 	test('renders App component', () => {
-		const router = createMemoryRouter(routes, {
+		const router = createMemoryRouter(ROUTES, {
 			initialEntries: ['/'],
 		});
 		render(<RouterProvider router={router} />);
@@ -61,13 +32,11 @@ describe('App', () => {
 	});
 
 	test('renders PageNotFound component on unknown path', () => {
-		const router = createMemoryRouter(routes, {
+		const router = createMemoryRouter(ROUTES, {
 			initialEntries: ['/unknown'],
 		});
 		render(<RouterProvider router={router} />);
 		const notFoundElement = screen.getByText(/page not found/i);
 		expect(notFoundElement).toBeInTheDocument();
 	});
-
-	// ... existing code ...
 });

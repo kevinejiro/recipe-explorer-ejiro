@@ -5,10 +5,12 @@ export default function Modal({
 	children,
 	open,
 	className = '',
+	handleClose,
 }: {
 	children: React.ReactNode;
 	open: boolean;
 	className?: string;
+	handleClose?: () => void;
 }) {
 	const dialog = useRef<HTMLDialogElement>(null);
 	const cssClassNames = `modal ${className}`;
@@ -19,10 +21,14 @@ export default function Modal({
 			modal.showModal();
 		}
 
-		return () => modal?.close();
+		return () => {
+			if (modal && open) {
+				modal.close();
+			}
+		};
 	}, [open]);
 	return createPortal(
-		<dialog ref={dialog} className={cssClassNames}>
+		<dialog ref={dialog} className={cssClassNames} onClose={handleClose}>
 			{children}
 		</dialog>,
 		document.getElementById('modal') || document.body
