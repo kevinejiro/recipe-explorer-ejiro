@@ -77,7 +77,6 @@ describe('RecipeForm Component', () => {
 
 		fireEvent.click(screen.getByText(/Add Recipe/i));
 
-		// Check if the form was reset and modal closed
 		expect(screen.getByLabelText(/Enter recipe name/i)).toHaveValue('');
 		expect(store.getState().ui.isAddRecipeModalOpen).toBe(false);
 	});

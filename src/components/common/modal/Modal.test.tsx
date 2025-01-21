@@ -30,4 +30,12 @@ describe('Modal Component', () => {
 		);
 		expect(screen.queryByText('Modal Content')).not.toBeVisible();
 	});
+
+	afterEach(() => {
+		jest.clearAllMocks();
+	});
+
+	afterAll(() => {
+		jest.restoreAllMocks();
+	});
 });

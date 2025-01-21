@@ -39,4 +39,12 @@ describe('Layout Component', () => {
 		// Check if the mocked Footer component is rendered
 		expect(screen.getByText('Mocked Footer')).toBeInTheDocument();
 	});
+
+	afterEach(() => {
+		jest.clearAllMocks();
+	});
+
+	afterAll(() => {
+		jest.restoreAllMocks();
+	});
 });

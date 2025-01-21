@@ -54,4 +54,12 @@ describe('SearchBar Component', () => {
 
 		expect(input).toHaveValue('Vanilla Cake');
 	});
+
+	afterEach(() => {
+		jest.clearAllMocks();
+	});
+
+	afterAll(() => {
+		jest.restoreAllMocks();
+	});
 });

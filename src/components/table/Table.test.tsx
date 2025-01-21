@@ -155,4 +155,12 @@ describe('Table Component', () => {
 		expect(header).not.toHaveTextContent('🔼');
 		expect(header).not.toHaveTextContent('🔽');
 	});
+
+	afterEach(() => {
+		jest.clearAllMocks();
+	});
+
+	afterAll(() => {
+		jest.restoreAllMocks();
+	});
 });
