@@ -4,7 +4,7 @@ import { RecipeT } from '../recipeList/RecipeList';
 
 export interface TableProps {
 	table: ReactTable<RecipeT>;
-	handleRowClick?: (id: string) => void;
+	handleRowClick?: (recipe: RecipeT) => void;
 	Filter?: ({ column }: { column: Column<RecipeT, unknown> }) => JSX.Element;
 }
 
@@ -57,7 +57,7 @@ export function Table({ table, handleRowClick, Filter }: TableProps) {
 					return (
 						<tr
 							key={row.id}
-							onClick={() => handleRowClick?.(row.original.idMeal)}
+							onClick={() => handleRowClick?.(row.original)}
 						>
 							{row.getVisibleCells().map((cell) => {
 								return (

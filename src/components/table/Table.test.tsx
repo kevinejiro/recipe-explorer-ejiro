@@ -70,7 +70,7 @@ describe('Table Component', () => {
 		render(<Table {...defaultProps} />);
 		const firstRow = screen.getByRole('row', { name: /Recipe 1/i });
 		fireEvent.click(firstRow);
-		expect(defaultProps.handleRowClick).toHaveBeenCalledWith('1');
+		expect(defaultProps.handleRowClick).toHaveBeenCalledWith(mockData[0]);
 	});
 
 	it('sorts table rows when header is clicked', () => {

@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import Button from '../../components/common/button/Button';
 import styles from './recipeDetails.module.css';
 import NoMatch from '../../components/noMatch/NoMatch';
@@ -8,13 +8,15 @@ import VideoPlayer from '../../components/common/videoPlayer/VideoPlayer';
 import SimilarRecipesList from '../../components/similarRecipesList/similarRecipesList';
 export default function RecipeDetails() {
 	const { id } = useParams();
+	const location = useLocation();
 
 	const { data, isLoading, isSuccess, isError } = useGetRecipeByIdQuery(
 		id ?? ''
 	);
 	const recipeObject = data?.meals?.[0];
+	const recipeFromTableData = location.state;
 
-	const recipe = transformRecipeObject(recipeObject);
+	const recipe = transformRecipeObject(recipeObject ?? recipeFromTableData);
 
 	if (isLoading) {
 		return (

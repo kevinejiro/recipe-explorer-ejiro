@@ -5,6 +5,7 @@ import Nav from './Nav';
 import { useDispatch } from 'react-redux';
 import { uiActions } from '../../store/ui/uiSlice';
 import uiSlice from '../../store/ui/uiSlice';
+import { createMemoryRouter, RouterProvider } from 'react-router-dom';
 
 jest.mock('react-redux', () => ({
 	...jest.requireActual('react-redux'),
@@ -17,13 +18,29 @@ const store = configureStore({
   },
 });
 
-const renderWithStore = (component: React.ReactNode) => {
-	return render(<Provider store={store}>{component}</Provider>);
+const renderWithRouter = (component: React.ReactNode) => {
+  const router = createMemoryRouter(
+    [
+      {
+        path: '/',
+        element: component,
+      },
+    ],
+    {
+      initialEntries: [''],
+      initialIndex: 0,
+    }
+  );
+  return render(
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
+  );
 };
 
 describe('Nav Component', () => {
 	test('renders the logo and buttons', () => {
-		renderWithStore(<Nav />);
+		renderWithRouter(<Nav />);
 
 		expect(screen.getByLabelText('Return to homepage')).toBeInTheDocument();
 
@@ -34,7 +51,7 @@ describe('Nav Component', () => {
 		const dispatch = jest.fn();
 		(useDispatch as unknown as jest.Mock).mockReturnValue(dispatch);
 
-		renderWithStore(<Nav />);
+		renderWithRouter(<Nav />);
 
 		fireEvent.click(screen.getByText('Add a recipe'));
 
@@ -42,7 +59,7 @@ describe('Nav Component', () => {
 	});
 
 	test('renders mobile button correctly', () => {
-		renderWithStore(<Nav />);
+		renderWithRouter(<Nav />);
 
 		expect(
 			screen.getByRole('button', { name: /Add a recipe/i })

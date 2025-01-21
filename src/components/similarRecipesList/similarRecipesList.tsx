@@ -75,8 +75,8 @@ export default function SimilarRecipesList({ cat }: { cat: string }) {
 		);
 	}
 
-	function handleRowClick(id: string) {
-		navigate(`/recipe/${id}`);
+	function handleRowClick(recipe: RecipeT) {
+		navigate(`/recipe/${recipe.idMeal}`, { state: recipe });
 		window.scrollTo({ top: 0, behavior: 'smooth' });
 	}
 

@@ -99,8 +99,8 @@ export default function RecipeList() {
 		);
 	}
 
-	function handleRowClick(id: string) {
-		navigate(`/recipe/${id}`);
+	function handleRowClick(recipe: RecipeT) {
+		navigate(`/recipe/${recipe.idMeal}`, { state: recipe });
 	}
 
 	function Filter({ column }: { column: Column<RecipeT, unknown> }) {

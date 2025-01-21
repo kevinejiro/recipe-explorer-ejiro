@@ -5,10 +5,15 @@ import {
 	useGetAreaListQuery,
 } from '../../store/recipes/recipesApiSlice';
 import useRecipeList from '../../hooks/useRecipeList';
-import RecipeList from './RecipeList';
+import RecipeList, { RecipeT } from './RecipeList';
 import { PaginationProps } from '../pagination/Pagination';
 import { TableProps } from '../table/Table';
 
+// Mock data
+const mockData: RecipeT[] = [
+	{ idMeal: '1', name: 'Recipe 1' },
+	{ idMeal: '2', name: 'Recipe 2' },
+];
 // Mock hooks and components
 jest.mock('../../store/recipes/recipesApiSlice');
 jest.mock('../../hooks/useRecipeList');
@@ -16,7 +21,7 @@ jest.mock('../table/Table', () => ({
 	Table: ({ table, handleRowClick }: TableProps) => (
 		<div>
 			<div>Mocked Table</div>
-			<button onClick={() => handleRowClick?.('1')}>Row 1</button>
+			<button onClick={() => handleRowClick?.(mockData[0])}>Row 1</button>
 		</div>
 	),
 }));
