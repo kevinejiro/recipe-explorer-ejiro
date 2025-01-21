@@ -15,14 +15,13 @@ import { useNavigate } from 'react-router-dom';
 import styles from './similarRecipesList.module.css';
 import { RecipeT } from '../recipeList/RecipeList';
 
-
 export default function SimilarRecipesList({ cat }: { cat: string }) {
 	const navigate = useNavigate();
 	const {
 		data: recipeData,
 		isLoading,
 		isSuccess,
-		isError
+		isError,
 	} = useGetRecipeByCatQuery(cat);
 
 	const recipeList = recipeData?.meals ?? [];
@@ -47,7 +46,7 @@ export default function SimilarRecipesList({ cat }: { cat: string }) {
 		getPaginationRowModel: getPaginationRowModel(),
 		initialState: {
 			pagination: {
-				pageSize: 17,
+				pageSize: 7,
 			},
 		},
 	});
