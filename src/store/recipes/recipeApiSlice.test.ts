@@ -33,4 +33,12 @@ describe('recipesApiSlice', () => {
 		const endpoint = recipesApiSlice.endpoints.getAreaList;
 		expect(endpoint).toBeDefined();
 	});
+
+	afterEach(() => {
+		jest.clearAllMocks();
+	});
+
+	afterAll(() => {
+		jest.restoreAllMocks();
+	});
 });

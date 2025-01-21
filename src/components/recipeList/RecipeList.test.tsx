@@ -124,4 +124,12 @@ describe('RecipeList Component', () => {
 		expect(screen.getByText('Mocked Table')).toBeInTheDocument();
 		expect(screen.getByText('Row 1')).toBeInTheDocument();
 	});
+
+	afterEach(() => {
+		jest.clearAllMocks();
+	});
+
+	afterAll(() => {
+		jest.restoreAllMocks();
+	});
 });

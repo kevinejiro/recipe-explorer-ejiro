@@ -23,7 +23,7 @@ describe('Home Component', () => {
 				},
 			],
 			{
-				initialEntries: ['/'],
+				initialEntries: [''],
 				initialIndex: 0,
 			}
 		);
@@ -70,5 +70,13 @@ describe('Home Component', () => {
 		renderWithRouter(<Home />);
 		const recipeListElement = screen.getByText(/Loading/i);
 		expect(recipeListElement).toBeInTheDocument();
+	});
+
+	afterEach(() => {
+		jest.clearAllMocks();
+	});
+	
+	afterAll(() => {
+		jest.restoreAllMocks();
 	});
 });

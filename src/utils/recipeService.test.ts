@@ -80,4 +80,12 @@ describe('transformRecipeObject', () => {
     const result = transformRecipeObject(input);
     expect(result).toEqual(expected);
   });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+  
+  afterAll(() => {
+    jest.restoreAllMocks();
+  });
 });

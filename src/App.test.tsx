@@ -1,26 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import { createMemoryRouter, RouterProvider } from 'react-router-dom';
-import { ROUTES } from './utils/routes'
-
-beforeAll(() => {
-	// Mock IntersectionObserver
-	global.IntersectionObserver = class {
-		observe() {}
-		unobserve() {}
-		disconnect() {}
-		root: Element | null = null;
-		rootMargin: string = '';
-		thresholds: number[] = [];
-		takeRecords(): IntersectionObserverEntry[] {
-			return [];
-		}
-	};
-  HTMLDialogElement.prototype.showModal = jest.fn();
-	HTMLDialogElement.prototype.close = jest.fn();
-});
+import { ROUTES } from './utils/routes';
 
 describe('App', () => {
-
 	test('renders App component', () => {
 		const router = createMemoryRouter(ROUTES, {
 			initialEntries: ['/'],
@@ -38,5 +20,13 @@ describe('App', () => {
 		render(<RouterProvider router={router} />);
 		const notFoundElement = screen.getByText(/page not found/i);
 		expect(notFoundElement).toBeInTheDocument();
+	});
+
+	afterEach(() => {
+		jest.clearAllMocks();
+	});
+
+	afterAll(() => {
+		jest.restoreAllMocks();
 	});
 });

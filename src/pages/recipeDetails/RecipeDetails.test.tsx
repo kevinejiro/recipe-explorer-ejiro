@@ -7,9 +7,12 @@ import { recipesApiSlice } from '../../store/recipes/recipesApiSlice';
 import { useGetRecipeByIdQuery } from '../../store/recipes/recipesApiSlice';
 
 // Mock the useGetRecipeByIdQuery hook
-jest.mock('../../store/recipes/recipesApiSlice');
+jest.mock('../../store/recipes/recipesApiSlice', () => ({
+	...jest.requireActual('../../store/recipes/recipesApiSlice'),
+	useGetRecipeByIdQuery: jest.fn(),
+}));
 
-beforeAll(() => {
+beforeEach(() => {
 	// Mock IntersectionObserver
 	global.IntersectionObserver = class {
 		observe() {}
@@ -27,10 +30,6 @@ beforeAll(() => {
 });
 
 describe('RecipeDetails Component', () => {
-	beforeEach(() => {
-		jest.clearAllMocks();
-	});
-
 	const store = configureStore({
 		reducer: {
 			[recipesApiSlice.reducerPath]: recipesApiSlice.reducer,
@@ -41,12 +40,12 @@ describe('RecipeDetails Component', () => {
 
 	const renderWithRouter = (
 		component: React.ReactNode,
-		initialRoute: string = 'recipe/1'
+		initialRoute: string = '/recipe/1'
 	) => {
 		const router = createMemoryRouter(
 			[
 				{
-					path: '/',
+					path: '/recipe/:id',
 					element: component,
 				},
 			],
@@ -72,7 +71,7 @@ describe('RecipeDetails Component', () => {
 
 		renderWithRouter(<RecipeDetails />);
 
-		expect(screen.getByText('Loading')).toBeInTheDocument();
+		expect(screen.getByText(/Loading/i)).toBeInTheDocument();
 	});
 
 	it('renders error message when there is an error', () => {
@@ -134,10 +133,17 @@ describe('RecipeDetails Component', () => {
 		expect(screen.getByText('Test Category • Test Area')).toBeInTheDocument();
 		expect(screen.getByText('Test Instructions')).toBeInTheDocument();
 		expect(screen.getByAltText('Test Meal')).toBeInTheDocument();
-		expect(
-			screen.getByText('Ingredient 1 (1 cup), Ingredient 2 (2 tbsp),')
-		).toBeInTheDocument();
+		expect(screen.getByText('Ingredient 1 (1 cup),')).toBeInTheDocument();
+		expect(screen.getByText('Ingredient 2 (2 tbsp),')).toBeInTheDocument();
 		expect(screen.getByText('Youtube')).toBeInTheDocument();
 		expect(screen.getByText('Similar Recipes')).toBeInTheDocument();
+	});
+
+	afterEach(() => {
+		jest.clearAllMocks();
+	});
+
+	afterAll(() => {
+		jest.restoreAllMocks();
 	});
 });
