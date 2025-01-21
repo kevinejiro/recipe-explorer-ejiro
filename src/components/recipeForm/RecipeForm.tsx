@@ -111,8 +111,8 @@ const RecipeForm = () => {
 						id='strInstructions'
 						name='strInstructions'
 						required
-						placeholder='instructions'
-						aria-label='instructions'
+						placeholder='Enter instructions'
+						aria-label='Enter instructions'
 					/>
 				</div>
 				<div className={styles.modalActions}>
