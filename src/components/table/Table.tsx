@@ -53,28 +53,22 @@ export function Table({ table, handleRowClick, Filter }: TableProps) {
 			</thead>
 
 			<tbody>
-				{table
-					.getRowModel()
-					.rows.slice(0, 10)
-					.map((row) => {
-						return (
-							<tr
-								key={row.id}
-								onClick={() => handleRowClick?.(row.original.idMeal)}
-							>
-								{row.getVisibleCells().map((cell) => {
-									return (
-										<td key={cell.id}>
-											{flexRender(
-												cell.column.columnDef.cell,
-												cell.getContext()
-											)}
-										</td>
-									);
-								})}
-							</tr>
-						);
-					})}
+				{table.getRowModel().rows.map((row) => {
+					return (
+						<tr
+							key={row.id}
+							onClick={() => handleRowClick?.(row.original.idMeal)}
+						>
+							{row.getVisibleCells().map((cell) => {
+								return (
+									<td key={cell.id}>
+										{flexRender(cell.column.columnDef.cell, cell.getContext())}
+									</td>
+								);
+							})}
+						</tr>
+					);
+				})}
 			</tbody>
 		</table>
 	);

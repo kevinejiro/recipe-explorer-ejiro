@@ -47,7 +47,7 @@ export default function SimilarRecipesList({ cat }: { cat: string }) {
 		getPaginationRowModel: getPaginationRowModel(),
 		initialState: {
 			pagination: {
-				pageSize: 7,
+				pageSize: 17,
 			},
 		},
 	});

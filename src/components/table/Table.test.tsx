@@ -125,32 +125,6 @@ describe('Table Component', () => {
 		expect(header).toHaveTextContent('Name 🔼');
 	});
 
-	it('limits the number of rendered rows', () => {
-		const largeData = Array.from({ length: 20 }, (_, i) => ({
-			idMeal: `${i + 1}`,
-			name: `Recipe ${i + 1}`,
-		}));
-		const largeTable = {
-			...mockTable,
-			getRowModel: () => ({
-				rows: largeData.map((data) => ({
-					id: data.idMeal,
-					original: data,
-					getVisibleCells: () => [
-						{
-							id: 'name',
-							column: { columnDef: { cell: () => data.name } },
-							getContext: () => ({}),
-						},
-					],
-				})),
-			}),
-		} as unknown as ReactTable<RecipeT>;
-
-		render(<Table {...defaultProps} table={largeTable} />);
-		expect(screen.getAllByRole('row')).toHaveLength(11);
-	});
-
 	it('does not sort when clicking on non-sortable column', () => {
 		const nonSortableTable = {
 			...mockTable,
