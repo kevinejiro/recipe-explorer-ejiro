@@ -37,7 +37,7 @@ export default function RecipeDetails() {
 			<NoMatch>
 				<h1>404</h1>
 				<p>Recipe not found</p>
-				<a href='/'>
+				<a href='/' aria-label='Return to homepage' title='Return to homepage'>
 					<Button variant='primary'>Return To Homepage</Button>
 				</a>
 			</NoMatch>
