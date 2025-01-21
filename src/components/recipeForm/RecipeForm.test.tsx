@@ -81,4 +81,12 @@ describe('RecipeForm Component', () => {
 		expect(screen.getByLabelText(/Enter recipe name/i)).toHaveValue('');
 		expect(store.getState().ui.isAddRecipeModalOpen).toBe(false);
 	});
+
+	afterEach(() => {
+		jest.clearAllMocks();
+	});
+
+	afterAll(() => {
+		jest.restoreAllMocks();
+	});
 });
