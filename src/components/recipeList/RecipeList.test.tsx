@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import { BrowserRouter } from 'react-router-dom';
+import { MemoryRouter } from 'react-router-dom';
 import {
 	useGetCategoryListQuery,
 	useGetAreaListQuery,
@@ -81,7 +81,7 @@ describe('RecipeList Component', () => {
 			isError: false,
 			recipeList: [],
 		});
-		render(<RecipeList />, { wrapper: BrowserRouter });
+		render(<RecipeList />, { wrapper: MemoryRouter });
 
 		expect(screen.getByText('Loading')).toBeInTheDocument();
 	});
@@ -93,7 +93,7 @@ describe('RecipeList Component', () => {
 			isError: true,
 			recipeList: [],
 		});
-		render(<RecipeList />, { wrapper: BrowserRouter });
+		render(<RecipeList />, { wrapper: MemoryRouter });
 
 		expect(screen.getByText('An Error Occurred')).toBeInTheDocument();
 	});
@@ -105,7 +105,7 @@ describe('RecipeList Component', () => {
 			isError: false,
 			recipeList: [],
 		});
-		render(<RecipeList />, { wrapper: BrowserRouter });
+		render(<RecipeList />, { wrapper: MemoryRouter });
 
 		expect(screen.getByText('No results from query')).toBeInTheDocument();
 	});
@@ -124,7 +124,7 @@ describe('RecipeList Component', () => {
 				},
 			],
 		});
-		render(<RecipeList />, { wrapper: BrowserRouter });
+		render(<RecipeList />, { wrapper: MemoryRouter });
 
 		expect(screen.getByText('Mocked Table')).toBeInTheDocument();
 		expect(screen.getByText('Row 1')).toBeInTheDocument();

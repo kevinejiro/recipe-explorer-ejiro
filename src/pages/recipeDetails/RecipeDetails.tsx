@@ -65,7 +65,7 @@ export default function RecipeDetails() {
 						<p>{recipe?.strInstructions}</p>
 					</article>
 				)}
-				{recipe?.ingredients && (
+				{recipe?.ingredients &&  recipe?.ingredients?.length > 0 && (
 					<article className={styles.column}>
 						<h3>Ingredients</h3>
 						<p>

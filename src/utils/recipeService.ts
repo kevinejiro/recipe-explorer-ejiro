@@ -19,35 +19,59 @@ export const transformListToOptions = (
 	];
 };
 
-export function transformRecipeObject(data: { [key: string]: string } | undefined): Recipe | null {
-  if (typeof data !== 'object' || data === null || Array.isArray(data)) {
-    return null;
-  }
-  const ingredients: string[] = [];
-  const measures: string[] = [];
+export function transformRecipeObject(
+	data: { [key: string]: string } | undefined
+): Recipe | null {
+	if (typeof data !== 'object' || data === null || Array.isArray(data)) {
+		return null;
+	}
+	const ingredients: string[] = [];
+	const measures: string[] = [];
 
-  // Loop through ingredient properties and build ingredients and measures arrays
-  for (let i = 1; i <= 20; i++) {
-    const ingredient = data[`strIngredient${i}`];
-    const measure = data[`strMeasure${i}`];
-    if (ingredient) {
-      ingredients.push(ingredient);
-      measures.push(measure || '');
-    } else {
-      break; 
-    }
-  }
+	// Loop through ingredient properties and build ingredients and measures arrays
+	for (let i = 1; i <= 20; i++) {
+		const ingredient = data[`strIngredient${i}`];
+		const measure = data[`strMeasure${i}`];
+		if (ingredient) {
+			ingredients.push(ingredient);
+			measures.push(measure || '');
+		} else {
+			continue;
+		}
+	}
 
-  return {
-    idMeal: data.idMeal,
-    strMeal: data.strMeal,
-    strCategory: data.strCategory,
-    strArea: data.strArea,
-    strInstructions: data.strInstructions,
-    strMealThumb: data.strMealThumb,
-    strTags: data.strTags ? data.strTags.split(',') : [],
-    strYoutube: data.strYoutube,
-    ingredients,
-    measures,
-  };
+	return {
+		idMeal: data.idMeal,
+		strMeal: data.strMeal,
+		strCategory: data.strCategory,
+		strArea: data.strArea,
+		strInstructions: data.strInstructions,
+		strMealThumb: data.strMealThumb,
+		strTags: data.strTags ? data.strTags.split(',') : [],
+		strYoutube: data.strYoutube,
+		ingredients,
+		measures,
+	};
 }
+
+export const transformIngredientsAndMeasures = (
+	ingredients: string[],
+	measures: string[]
+): { [key: string]: string } => {
+	const transformedData: Record<string, string> = {};
+
+	ingredients.forEach((ingredient, index) => {
+		if (ingredient) {
+			transformedData[`strIngredient${index + 1}`] = ingredient;
+		}
+	});
+
+	measures.forEach((measure, index) => {
+		if (measure) {
+			transformedData[`strMeasure${index + 1}`] = measure;
+		}
+	});
+
+	return transformedData;
+};
+
