@@ -13,10 +13,7 @@ import { Table } from '../table/Table';
 import Pagination from '../pagination/Pagination';
 import { useNavigate } from 'react-router-dom';
 import styles from './similarRecipesList.module.css';
-
-interface RecipeT {
-	[key: string]: string;
-}
+import { RecipeT } from '../recipeList/RecipeList';
 
 export default function SimilarRecipesList({ cat }: { cat: string }) {
 	const navigate = useNavigate();
@@ -24,6 +21,7 @@ export default function SimilarRecipesList({ cat }: { cat: string }) {
 		data: recipeData,
 		isLoading,
 		isSuccess,
+		isError,
 	} = useGetRecipeByCatQuery(cat);
 
 	const recipeList = recipeData?.meals ?? [];
@@ -61,6 +59,14 @@ export default function SimilarRecipesList({ cat }: { cat: string }) {
 		);
 	}
 
+	if (isError) {
+		return (
+			<NoMatch>
+				<h3>An Error Occurred, please refresh</h3>
+			</NoMatch>
+		);
+	}
+
 	if (recipeList.length === 0 && isSuccess) {
 		return (
 			<NoMatch>
@@ -69,8 +75,8 @@ export default function SimilarRecipesList({ cat }: { cat: string }) {
 		);
 	}
 
-	function handleRowClick(id: string) {
-		navigate(`/recipe/${id}`);
+	function handleRowClick(recipe: RecipeT) {
+		navigate(`/recipe/${recipe.idMeal}`, { state: recipe });
 		window.scrollTo({ top: 0, behavior: 'smooth' });
 	}
 

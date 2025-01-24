@@ -3,8 +3,10 @@ import Logo from '../../assets/svg/logo/Logo';
 import Button from '../common/button/Button';
 import styles from './nav.module.css';
 import { uiActions } from '../../store/ui/uiSlice';
+import { useNavigate } from 'react-router-dom';
 
 export default function Nav() {
+	const navigate = useNavigate()
 	const dispatch = useDispatch();
 	const { toggleAddRecipeModal } = uiActions;
 
@@ -14,14 +16,15 @@ export default function Nav() {
 	return (
 		<section className={styles.navWrapper}>
 			<header>
-				<a
-					href='/'
+				<Button
+					onClick={() => navigate('/')}
 					aria-label='Return to homepage'
 					title='Return to homepage'
 					className={styles.logoWrapper}
+					variant='text'
 				>
 					<Logo />
-				</a>
+				</Button>
 				<nav>
 					<ul className={styles.buttons}>
 						<li>

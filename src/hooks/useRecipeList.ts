@@ -4,12 +4,13 @@ import useSearch from './useSearch';
 const useRecipeList = () => {
 	const { name } = useSearch();
 
-	const { data, isLoading, isSuccess } = useGetRecipesQuery(name);
+	const { data, isLoading, isSuccess, isError } = useGetRecipesQuery(name);
 	const recipeList = data?.meals ?? [];
 
 	return {
 		isLoading,
 		isSuccess,
+		isError,
 		recipeList,
 		total: recipeList.length,
 	};

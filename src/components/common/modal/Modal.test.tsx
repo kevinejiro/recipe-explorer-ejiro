@@ -1,4 +1,3 @@
-import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import Modal from './Modal';
@@ -11,8 +10,9 @@ beforeAll(() => {
 
 describe('Modal Component', () => {
 	it('should render children when open is true', () => {
+		const handleClose = jest.fn();
 		render(
-			<Modal open={true}>
+			<Modal open={true} handleClose={handleClose}>
 				<div>Modal Content</div>
 			</Modal>
 		);
@@ -22,11 +22,20 @@ describe('Modal Component', () => {
 	});
 
 	it('should not render children when open is false', () => {
+		const handleClose = jest.fn();
 		render(
-			<Modal open={false}>
+			<Modal open={false} handleClose={handleClose}>
 				<div>Modal Content</div>
 			</Modal>
 		);
 		expect(screen.queryByText('Modal Content')).not.toBeVisible();
+	});
+
+	afterEach(() => {
+		jest.clearAllMocks();
+	});
+
+	afterAll(() => {
+		jest.restoreAllMocks();
 	});
 });

@@ -1,12 +1,12 @@
 import { createBrowserRouter } from 'react-router-dom';
-import Layout from '../components/layout/Layout';
-import Home from '../pages/home/Home';
 import RecipeDetails from '../pages/recipeDetails/RecipeDetails';
+import Home from '../pages/home/Home';
 import PageNotFound from '../pages/404/PageNotFound';
+import Layout from '../components/layout/Layout';
 
 // const RecipeDetails = lazy(() => import('./pages/recipeDetails/RecipeDetails'));
 
-export const router = createBrowserRouter([
+export const ROUTES = [
 	{
 		path: '/',
 		element: <Layout />,
@@ -30,4 +30,6 @@ export const router = createBrowserRouter([
 			},
 		],
 	},
-]);
+];
+
+export const router = createBrowserRouter(ROUTES);

@@ -16,7 +16,9 @@ const RecipeForm = () => {
 	const { toggleAddRecipeModal } = uiActions;
 
 	function handleCloseRecipeModal() {
-		dispatch(toggleAddRecipeModal());
+		if (isAddRecipeModalOpen) {
+			dispatch(toggleAddRecipeModal());
+		}
 	}
 
 	const handleLocalUpdate = (formData: {
@@ -67,7 +69,7 @@ const RecipeForm = () => {
 	};
 
 	return (
-		<Modal open={isAddRecipeModalOpen}>
+		<Modal open={isAddRecipeModalOpen} handleClose={handleCloseRecipeModal}>
 			<form onSubmit={handleSubmit} className={styles.formWrapper}>
 				<div className={styles.column}>
 					<label htmlFor='name'>Name:</label>
@@ -109,8 +111,8 @@ const RecipeForm = () => {
 						id='strInstructions'
 						name='strInstructions'
 						required
-						placeholder='instructions'
-						aria-label='instructions'
+						placeholder='Enter instructions'
+						aria-label='Enter instructions'
 					/>
 				</div>
 				<div className={styles.modalActions}>

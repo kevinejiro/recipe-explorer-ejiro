@@ -1,12 +1,11 @@
 import { Column, flexRender } from '@tanstack/react-table';
 import { Table as ReactTable } from '@tanstack/react-table';
+import { RecipeT } from '../recipeList/RecipeList';
 
-interface TableProps {
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	table: ReactTable<any>;
-	handleRowClick?: (id: string) => void;
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	Filter?: ({ column }: { column: Column<any, unknown> }) => JSX.Element;
+export interface TableProps {
+	table: ReactTable<RecipeT>;
+	handleRowClick?: (recipe: RecipeT) => void;
+	Filter?: ({ column }: { column: Column<RecipeT, unknown> }) => JSX.Element;
 }
 
 export function Table({ table, handleRowClick, Filter }: TableProps) {
@@ -54,28 +53,22 @@ export function Table({ table, handleRowClick, Filter }: TableProps) {
 			</thead>
 
 			<tbody>
-				{table
-					.getRowModel()
-					.rows.slice(0, 10)
-					.map((row) => {
-						return (
-							<tr
-								key={row.id}
-								onClick={() => handleRowClick?.(row.original.idMeal)}
-							>
-								{row.getVisibleCells().map((cell) => {
-									return (
-										<td key={cell.id}>
-											{flexRender(
-												cell.column.columnDef.cell,
-												cell.getContext()
-											)}
-										</td>
-									);
-								})}
-							</tr>
-						);
-					})}
+				{table.getRowModel().rows.map((row) => {
+					return (
+						<tr
+							key={row.id}
+							onClick={() => handleRowClick?.(row.original)}
+						>
+							{row.getVisibleCells().map((cell) => {
+								return (
+									<td key={cell.id}>
+										{flexRender(cell.column.columnDef.cell, cell.getContext())}
+									</td>
+								);
+							})}
+						</tr>
+					);
+				})}
 			</tbody>
 		</table>
 	);

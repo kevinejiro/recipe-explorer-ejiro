@@ -1,4 +1,3 @@
-// import { FOOTER_LIST } from '../../utils/contants';
 import styles from './footer.module.css';
 
 export default function Footer(): JSX.Element {

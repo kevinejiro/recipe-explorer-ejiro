@@ -20,7 +20,7 @@ import useRecipeList from '../../hooks/useRecipeList';
 import Pagination from '../pagination/Pagination';
 import styles from './recipeList.module.css';
 
-interface RecipeT {
+export interface RecipeT {
 	[key: string]: string;
 }
 
@@ -33,7 +33,7 @@ export default function RecipeList() {
 	const navigate = useNavigate();
 	const { data: categoryData } = useGetCategoryListQuery();
 	const { data: areaData } = useGetAreaListQuery();
-	const { isLoading, isSuccess, recipeList } = useRecipeList();
+	const { isLoading, isSuccess, isError, recipeList } = useRecipeList();
 
 	const categoryList = categoryData?.meals ?? [];
 	const areaList = areaData?.meals ?? [];
@@ -70,7 +70,7 @@ export default function RecipeList() {
 		data: recipeList,
 		debugTable: true,
 		getCoreRowModel: getCoreRowModel(),
-		getFilteredRowModel: getFilteredRowModel(), //client-side filtering
+		getFilteredRowModel: getFilteredRowModel(),
 		getSortedRowModel: getSortedRowModel(),
 		getPaginationRowModel: getPaginationRowModel(),
 	});
@@ -83,6 +83,14 @@ export default function RecipeList() {
 		);
 	}
 
+	if (isError) {
+		return (
+			<NoMatch>
+				<h3>An Error Occurred</h3>
+			</NoMatch>
+		);
+	}
+
 	if (recipeList.length === 0 && isSuccess) {
 		return (
 			<NoMatch>
@@ -91,8 +99,8 @@ export default function RecipeList() {
 		);
 	}
 
-	function handleRowClick(id: string) {
-		navigate(`/recipe/${id}`);
+	function handleRowClick(recipe: RecipeT) {
+		navigate(`/recipe/${recipe.idMeal}`, { state: recipe });
 	}
 
 	function Filter({ column }: { column: Column<RecipeT, unknown> }) {

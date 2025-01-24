@@ -6,7 +6,7 @@ export default function PageNotFound() {
 		<NoMatch>
 			<h1>404: Page not found</h1>
 			<p>The page you are looking for cannot be found.</p>
-			<a href='/'>
+			<a href='/' aria-label='Return to homepage' title='Return to homepage'>
 				<Button variant='primary'>Return To Homepage</Button>
 			</a>
 		</NoMatch>

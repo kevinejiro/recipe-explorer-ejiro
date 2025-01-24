@@ -1,57 +1,10 @@
 import { render, screen } from '@testing-library/react';
 import { createMemoryRouter, RouterProvider } from 'react-router-dom';
-import Layout from './components/layout/Layout';
-import Home from './pages/home/Home';
-import PageNotFound from './pages/404/PageNotFound';
-import RecipeDetails from './pages/recipeDetails/RecipeDetails';
-
-beforeAll(() => {
-	// Mock IntersectionObserver
-	global.IntersectionObserver = class {
-		observe() {}
-		unobserve() {}
-		disconnect() {}
-		root: Element | null = null;
-		rootMargin: string = '';
-		thresholds: number[] = [];
-		takeRecords(): IntersectionObserverEntry[] {
-			return [];
-		}
-	};
-  HTMLDialogElement.prototype.showModal = jest.fn();
-	HTMLDialogElement.prototype.close = jest.fn();
-});
+import { ROUTES } from './utils/routes';
 
 describe('App', () => {
-	const routes = [
-		{
-			path: '/',
-			element: <Layout />,
-			errorElement: (
-				<Layout>
-					<PageNotFound />
-				</Layout>
-			),
-			children: [
-				{
-					index: true,
-					element: <Home />,
-				},
-				{
-					path: 'recipe/:id',
-					element: <RecipeDetails />,
-				},
-				{
-					path: '*',
-					element: <PageNotFound />,
-				},
-			],
-		},
-	];
-	// ... existing code ...
-
 	test('renders App component', () => {
-		const router = createMemoryRouter(routes, {
+		const router = createMemoryRouter(ROUTES, {
 			initialEntries: ['/'],
 		});
 		render(<RouterProvider router={router} />);
@@ -61,7 +14,7 @@ describe('App', () => {
 	});
 
 	test('renders PageNotFound component on unknown path', () => {
-		const router = createMemoryRouter(routes, {
+		const router = createMemoryRouter(ROUTES, {
 			initialEntries: ['/unknown'],
 		});
 		render(<RouterProvider router={router} />);
@@ -69,5 +22,11 @@ describe('App', () => {
 		expect(notFoundElement).toBeInTheDocument();
 	});
 
-	// ... existing code ...
+	afterEach(() => {
+		jest.clearAllMocks();
+	});
+
+	afterAll(() => {
+		jest.restoreAllMocks();
+	});
 });
