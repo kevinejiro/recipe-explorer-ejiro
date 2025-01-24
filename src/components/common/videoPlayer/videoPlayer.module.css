@@ -6,7 +6,16 @@
   justify-content: center;
   align-items: center;
   flex: none;
-  aspect-ratio: 14/9;
+  aspect-ratio: 16/9;
+
+  iframe {
+    height: inherit;
+    border-radius: calc(var(--border-radius) / 2);
+
+    @media (min-width: 768px) {
+      aspect-ratio: 20/9;
+    }
+  }
 }
 
 .videoFrame {

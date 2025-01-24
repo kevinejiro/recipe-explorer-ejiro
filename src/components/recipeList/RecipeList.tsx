@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, useCallback } from 'react';
 import {
 	getPaginationRowModel,
 	ColumnDef,
@@ -65,6 +65,13 @@ export default function RecipeList() {
 		[]
 	);
 
+	const handleRowClick = useCallback(
+		(recipe: RecipeT) => {
+			navigate(`/recipe/${recipe.idMeal}`, { state: recipe });
+		},
+		[navigate]
+	);
+
 	const table = useReactTable<RecipeT>({
 		columns,
 		data: recipeList,
@@ -97,10 +104,6 @@ export default function RecipeList() {
 				<h3>No results from query</h3>
 			</NoMatch>
 		);
-	}
-
-	function handleRowClick(recipe: RecipeT) {
-		navigate(`/recipe/${recipe.idMeal}`, { state: recipe });
 	}
 
 	function Filter({ column }: { column: Column<RecipeT, unknown> }) {
